@@ -6,22 +6,26 @@
 #include "csv.h"
 
 #define BOOK_FILENAME "books.csv"
-typedef struct book_t  {
-	std::string isbn;
-	std::string title;
-	std::string authors;
-	int year_of_publication;
-	int page_len;
-} book_t;
 
-std::string book_json_output(std)
+std::string book_vec_to_json(std::vector<std::string> headers, std::vector<std::string> book)
+{
+	int i;
+	std::string out = "{";
+	for (i = 0; i < book.size(); i++) {
+		out += "\"" + headers[i] + "\":";
+		out += "\"" + book[i] + "\",";
+	}
+	return out + "}";
+
+}
 
 std::string get_all_books()
 {
 	std::ifstream file;
 	int file_exists;
 	std::string line, total_lines;
-	book_t book;
+	std::vector<std::string> book_vec;
+	std::vector<std::string> header_vec;
 
 	file.open(BOOK_FILENAME);
 
@@ -30,16 +34,19 @@ std::string get_all_books()
 		return "No books saved!";
 	}
 
-	std::getline(file, line); // theres probably a better way to skip the first line
+	std::getline(file, line); 
 	
-	std::vector<std::string> book_vec;
+	// this contains the headers so that we can fill the json file
+	header_vec = get_csv_as_vector(line); 
+	
 
+	total_lines = "{";	
 	while (std::getline(file, line)) {
 		book_vec = get_csv_as_vector(line);
-		total_lines += print_vec(book_vec);
+		total_lines += book_vec_to_json(header_vec, book_vec) + ",";
 	}
 
-	return total_lines;
+	return total_lines + "}";
 }
 
 std::string print_hello()
