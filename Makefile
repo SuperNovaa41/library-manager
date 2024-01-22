@@ -1,5 +1,5 @@
 all: api/*.cpp
-	g++ api/main.cpp api/csv.cpp -o manager
+	g++ api/main.cpp api/csv.cpp api/isbn-interaction.cpp -o manager
 	mkdir -p bin
 	mv manager bin/
 clean:
