@@ -1,6 +1,6 @@
-all: src/*.cpp
-	g++ src/main.cpp src/csv.cpp -o manager
-	mkdir -p build
-	mv manager build/
+all: api/*.cpp
+	g++ api/main.cpp api/csv.cpp -o manager
+	mkdir -p bin
+	mv manager bin/
 clean:
-	rm -rf build
+	rm -rf bin
