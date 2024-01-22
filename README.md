@@ -37,3 +37,11 @@ TODO:
 
 To compile the backend simple run `make` in the source directory.
 To compile the front end.... blah blah (maybe and HOPEFULLY hook it into the makefile)
+
+
+# TODOs:
+
+- Fix the tests to use crow.h so it actually functions
+- Connect the REST backend to the front end
+- Finish adding the features from the isbn into the backend
+- ...
