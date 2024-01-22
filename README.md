@@ -33,7 +33,7 @@ TODO:
 
 ### Compiling
 
-**Dependencies**: [ISBN-lookup](https://github.com/SuperNovaa41/isbn-lookup), [CrowCPP](https://crowcpp.org), .. im sure theres more
+**Dependencies**: [ISBN-lookup](https://github.com/SuperNovaa41/isbn-lookup), [CrowCPP](https://crowcpp.org), wget, .. im sure theres more
 
 To compile the backend simple run `make` in the source directory.
 To compile the front end.... blah blah (maybe and HOPEFULLY hook it into the makefile)
