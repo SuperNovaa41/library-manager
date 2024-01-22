@@ -1,6 +1,9 @@
+#include <cinttypes>
 #include <string>
 #include <vector>
 #include <fstream>
+
+#include <unistd.h>
 
 #include "isbn-interaction.h"
 #include "csv.h"
@@ -46,4 +49,21 @@ std::string get_all_books()
 	}
 
 	return total_lines + "}";
+}
+
+void add_new_book(std::string isbn)
+{
+	pid_t pid;
+
+
+	std::string program_name = "./isbn";
+	std::string write = "w";
+	const char* args[] = {program_name.c_str(), isbn.c_str(), write.c_str()};
+
+	pid = fork();	
+	if (0 == pid) { // 
+		// this is the child
+	}
+
+	//TODO execvp the args blah blah
 }
