@@ -1,9 +1,11 @@
 <script lang="ts">
-	import '../app.scss';
+	import '../app.css';
+	import Header from './Header.svelte';
 </script>
 
-<svelte:head>
-	<title>Library Manager</title>
-</svelte:head>
-
+<Header />
 <slot />
+
+<style>
+	@import '../variables.css';
+</style>
