@@ -1,0 +1,25 @@
+name: Builds Application
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    name: Builds backend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v19
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Enter Development Shell
+        run: nix develop
+      - name: Build Backend
+        run: make
+      - name: Install NPM Packages
+        run: npm install
+      - name: Build Frontend
+        run: npm run tauri build

@@ -8,10 +8,7 @@
     nixpkgs,
   }: let
     system = "x86_64-linux";
-
-    pkgs = import nixpkgs {
-      inherit system;
-    };
+    pkgs = import nixpkgs {inherit system;};
 
     crow = pkgs.stdenv.mkDerivation rec {
       pname = "crow";
@@ -38,19 +35,31 @@
 
       doCheck = false;
     };
+
+    packages = with pkgs; [
+      # SvelteKit + Tauri
+      nodejs
+      cargo
+      rustc
+      curl
+      wget
+      pkg-config
+      dbus
+      openssl_3
+      glib
+      gtk3
+      libsoup
+      webkitgtk
+      librsvg
+
+      # C/C++
+      boost
+      crow
+      gnumake
+    ];
   in {
     devShells.${system}.default = pkgs.mkShell {
-      buildInputs = with pkgs; [
-        nodejs
-        cargo
-        rustc
-        pkg-config
-        gtk3
-        webkitgtk
-        gnumake
-        boost
-        crow
-      ];
+      buildInputs = packages;
 
       shellHook = with pkgs; ''
         export XDG_DATA_DIRS=${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_DATA_DIRS;
