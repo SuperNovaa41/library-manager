@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Builds backend
+    name: Builds Application
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
