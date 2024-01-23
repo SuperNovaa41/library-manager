@@ -1,7 +1,4 @@
 #!/bin/sh
-
-
-
 make
 
 cd bin/
