@@ -58,39 +58,74 @@ std::string get_all_books()
 
 std::string remove_book(int id)
 {
-	pid_t pid;
-	int exec_status;
-
+	enum ISBN_EXIT_CODE exec_code;
 	std::string program_name = "./isbn";
+	std::string remove = "remove";
+	std::string str_id = std::to_string(id);
+
+	char* args[] = {(char*) program_name.c_str(), (char*) remove.c_str(), (char*) str_id.c_str(), NULL};
+
+	switch (exec_code) {
+		case FORK_FAILED:
+			perror("removing book, failed to fork");
+			return "Couldn't remove book!";
+		case PROGRAM_EXIT_UNEXPECTED:
+			perror("ISBN exited unexpectedly");
+			return "Couldn't remove book!";
+		case PROGRAM_FAIL:
+			return "There was an error in removing the book!";
+		case PROGRAM_SUCCESS:
+			return "Successfully removed book!";
+		default:
+			return "Unknown error in removing book!";
+	}
 }
 
+
 std::string add_new_book(std::string isbn)
+{
+	enum ISBN_EXIT_CODE exec_code;
+	std::string program_name = "./isbn";
+	char* args[] = {(char*) program_name.c_str(), (char*) isbn.c_str(), NULL};
+
+
+	exec_code = run_isbn_program(args);
+	
+	switch (exec_code) {
+		case FORK_FAILED:
+			perror("Adding book, failed to fork");
+			return "Book lookup failed!";
+		case PROGRAM_EXIT_UNEXPECTED:
+			perror("ISBN exited unexpectedly");
+			return "Book lookup failed!";
+		case PROGRAM_FAIL:
+			return "Invalid ISBN submitted!";
+		case PROGRAM_SUCCESS:
+			return "Book added succesfully!";
+		default:
+			return "Unknown error in adding book!";
+	}
+}
+
+enum ISBN_EXIT_CODE run_isbn_program(char* args[])
 {
 	pid_t pid;
 	int exec_status;
 
-	std::string program_name = "./isbn";
-	char* args[] = {(char*) program_name.c_str(), (char*) isbn.c_str(), NULL};
-
-	pid = fork();	
-	if (0 == pid) { 
+	pid = fork();
+	if (0 == pid) {
 		execvp(args[0], args);
 		exit(EXIT_SUCCESS);
 	} else if (pid < 0) {
-		perror("Adding book, failed to fork");	
-		return "Book lookup failed!";
+		return FORK_FAILED;	
 	} else {
 		wait(&exec_status);
 
-		if (!WIFEXITED(exec_status)) {
-			perror("ISBN exited unexpectedly!");
-			return "Book lookup failed!";
-		}
-
-		if (0 != WEXITSTATUS(exec_status)) {
-			return "Invalid ISBN submitted!";
-		}
-
-		return "Book added successfully!";
+		if (!WIFEXITED(exec_status))
+			return PROGRAM_EXIT_UNEXPECTED;
+		if (0 != WEXITSTATUS(exec_status))
+			return PROGRAM_FAIL;
+		return PROGRAM_SUCCESS;
 	}
 }
+
