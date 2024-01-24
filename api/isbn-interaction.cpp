@@ -63,6 +63,8 @@ std::string remove_book(std::string id)
 
 	char* args[] = {(char*) program_name.c_str(), (char*) remove.c_str(), (char*) id.c_str(), NULL};
 
+	exec_code = run_isbn_program(args);
+
 	switch (exec_code) {
 		case FORK_FAILED:
 			perror("removing book, failed to fork");

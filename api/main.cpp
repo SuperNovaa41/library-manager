@@ -29,7 +29,11 @@ int main()
 		 	return crow::response(add_new_book(isbn));
 		 });
 
-
+	CROW_ROUTE(app, "/remove/<string>")
+		([](std::string id)
+		 {
+			return crow::response(remove_book(id));
+		 });
 
 
 	app.port(18080).run();
