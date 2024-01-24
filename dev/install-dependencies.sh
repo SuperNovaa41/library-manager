@@ -1,13 +1,15 @@
 #!/bin/sh
-make
 
-cd bin/
+cd ../
+
+mkdir -p bin
+cd bin
 
 wget https://github.com/SuperNovaa41/isbn-lookup/releases/download/0.0.3/isbn
 chmod +x isbn
 
-cd ..
+cd ../
 
-npm install # setup NPM depedencies
+npm install
 
-npm run tauri dev
+cd dev/
