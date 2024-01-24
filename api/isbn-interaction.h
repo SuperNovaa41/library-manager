@@ -17,6 +17,6 @@ std::string book_vec_to_json(std::vector<std::string> headers, std::vector<std::
  */
 std::string get_all_books();
 
-void add_new_book(std::string isbn);
+std::string add_new_book(std::string isbn);
 
 #endif

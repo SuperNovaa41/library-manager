@@ -3,7 +3,7 @@ make
 
 cd bin/
 
-wget https://github.com/SuperNovaa41/isbn-lookup/releases/download/release/isbn
+wget https://github.com/SuperNovaa41/isbn-lookup/releases/download/0.0.2/isbn
 chmod +x isbn
 
 cd ..
