@@ -56,14 +56,21 @@ std::string get_all_books()
 	return total_lines + "}";
 }
 
+std::string remove_book(int id)
+{
+	pid_t pid;
+	int exec_status;
+
+	std::string program_name = "./isbn";
+}
+
 std::string add_new_book(std::string isbn)
 {
 	pid_t pid;
 	int exec_status;
 
 	std::string program_name = "./isbn";
-	std::string write = "w";
-	char* args[] = {(char*) program_name.c_str(), (char*) isbn.c_str(), (char*) write.c_str(), NULL};
+	char* args[] = {(char*) program_name.c_str(), (char*) isbn.c_str(), NULL};
 
 	pid = fork();	
 	if (0 == pid) { 
