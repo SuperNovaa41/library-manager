@@ -12,8 +12,7 @@
 #define BOOK_FILENAME "books.csv"
 
 std::string book_vec_to_json(std::vector<std::string> headers, std::vector<std::string> book)
-{
-	int i;
+{ int i;
 	std::string out = "{";
 
 	for (i = 0; i < book.size(); i++) {
@@ -56,14 +55,13 @@ std::string get_all_books()
 	return total_lines + "}";
 }
 
-std::string remove_book(int id)
+std::string remove_book(std::string id)
 {
 	enum ISBN_EXIT_CODE exec_code;
 	std::string program_name = "./isbn";
 	std::string remove = "remove";
-	std::string str_id = std::to_string(id);
 
-	char* args[] = {(char*) program_name.c_str(), (char*) remove.c_str(), (char*) str_id.c_str(), NULL};
+	char* args[] = {(char*) program_name.c_str(), (char*) remove.c_str(), (char*) id.c_str(), NULL};
 
 	switch (exec_code) {
 		case FORK_FAILED:
