@@ -57,14 +57,30 @@
       crow
       gnumake
     ];
+
+    libraries = with pkgs; [
+      curl
+      cjson
+      webkitgtk
+      gtk3
+      cairo
+      gdk-pixbuf
+      glib
+      dbus
+      openssl_3
+      librsvg
+    ];
   in {
     devShells.${system}.default = pkgs.mkShell {
       buildInputs = packages;
 
-      shellHook = with pkgs; ''
-        export XDG_DATA_DIRS=${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_DATA_DIRS;
-        export GIO_MODULE_DIR="${glib-networking}/lib/gio/modules/";
-      '';
+      NIX_LD = with pkgs;
+        runCommand "ld.so" {} ''
+          ln -s "$(cat '${stdenv.cc}/nix-support/dynamic-linker')" $out
+        '';
+      NIX_LD_LIBRARY_PATH = with pkgs; "${lib.makeLibraryPath libraries}:$NIX_LD_LIBRARY_PATH";
+      XDG_DATA_DIRS = with pkgs; "${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_DATA_DIRS;";
+      GIO_MODULE_DIR = with pkgs; "${glib-networking}/lib/gio/modules/";
     };
   };
 }
