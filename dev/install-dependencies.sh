@@ -5,7 +5,7 @@ cd ../
 mkdir -p bin
 cd bin
 
-wget https://github.com/SuperNovaa41/isbn-lookup/releases/download/0.0.3/isbn
+wget https://github.com/SuperNovaa41/isbn-lookup/releases/download/0.0.4/isbn
 chmod +x isbn
 
 cd ../
