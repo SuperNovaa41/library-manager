@@ -19,6 +19,9 @@ std::string book_vec_to_json(std::vector<std::string> headers, std::vector<std::
 		out += "\"" + headers[i] + "\":";
 		out += "\"" + book[i] + "\",";
 	}
+	// remove the trailing comma
+	out.pop_back();
+
 	return out + "}";
 
 }
@@ -44,15 +47,18 @@ std::string get_all_books()
 	// this contains the headers so that we can fill the json file
 	header_vec = get_csv_as_vector(line); 
 
-	total_lines = "{";	
+	total_lines = "{ \"books\": [";	
 	while (std::getline(file, line)) {
 		book_vec = get_csv_as_vector(line);
 	
 		total_lines += book_vec_to_json(header_vec, book_vec) + ",";
 	}
 
+	// remove the trailing comma
+	total_lines.pop_back();
 
-	return total_lines + "}";
+
+	return total_lines + "]}";
 }
 
 std::string remove_book(std::string id)
