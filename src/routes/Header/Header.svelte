@@ -18,6 +18,8 @@
 </script>
 
 <nav>
+  <!--  TODO: Minimum width for title. -->
+  <!--  TODO: Sticky header. -->
   <div class="title">
     <div class="icon">󰗚</div>
     Library Manager

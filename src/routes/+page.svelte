@@ -12,6 +12,7 @@
         "authors": "Scott Cawthon, Kira Breed-Wrisley, Kira Breed-Wrisley, Kira Breed-Wrisley Scott Cawthon, Suzanne Elise Freeman, Kira Breed-Wrisley",
         "imageurl": "https://covers.openlibrary.org/b/id/8075533-L.jpg",
         "publication_year": "2001",
+        "progress": "312",
         "page_length": "400"
       },
       {
@@ -21,6 +22,7 @@
         "authors": "Scott Cawthon",
         "imageurl": "https://covers.openlibrary.org/b/id/12405670-L.jpg",
         "publication_year": "2021",
+        "progress": "12",
         "page_length": "96"
       },
       {
@@ -30,6 +32,7 @@
         "authors": "Scott Cawthon",
         "imageurl": "https://covers.openlibrary.org/b/id/10502812-L.jpg",
         "publication_year": "2018",
+        "progress": "0",
         "page_length": "166"
       },
       {
@@ -38,8 +41,19 @@
         "title": "Freddy Files",
         "authors": "Scott Cawthon",
         "imageurl": "https://covers.openlibrary.org/b/id/14432108-L.jpg",
-        "year of publication": "2019",
-        "page length": "256"
+        "publication_year": "2019",
+        "progress": "256",
+        "page_length": "256"
+      },
+      {
+        "id": "5",
+        "isbn": "9781419747496",
+        "title": "The Art of The Mitchells vs. The Machines",
+        "authors": "Ramin Zahed",
+        "imageurl": "https://covers.openlibrary.org/b/id/13771830-L.jpg",
+        "publication_year": "2020",
+        "progress": "128",
+        "page_length": "224"
       }
     ]}`).books;
 </script>

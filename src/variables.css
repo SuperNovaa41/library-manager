@@ -29,6 +29,16 @@
 }
 
 @font-face {
+  font-family: 'Merriweather Sans';
+  src: url('/fonts/Merriweather_Sans/MerriweatherSans-VariableFont_wght.ttf');
+}
+
+@font-face {
+  font-family: 'Rubik Mono One';
+  src: url('/fonts/Rubik_Mono_One/RubikMonoOne-Regular.ttf');
+}
+
+@font-face {
   font-family: 'NFSymbols';
   src: url('/fonts/NFSymbols/SymbolsNerdFontMono-Regular.ttf');
 }
