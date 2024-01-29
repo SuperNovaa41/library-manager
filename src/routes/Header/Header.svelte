@@ -45,7 +45,7 @@
     & div {
       height: 100%;
 
-      padding: 0 20px;
+      padding: 0 25px;
 
       display: flex;
       align-items: center;
@@ -65,6 +65,7 @@
         }
 
         width: 100%;
+        min-width: 340px;
         font-size: 40px;
         font-weight: bold;
         font-family: "Oswald", sans-serif;
