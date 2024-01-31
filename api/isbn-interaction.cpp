@@ -1,15 +1,13 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <sqlite3.h>
 
 #include <sys/wait.h>
 #include <unistd.h>
 #include <stdlib.h>
 
 #include "isbn-interaction.h"
-#include "csv.h"
-
-#define BOOK_FILENAME "books.csv"
 
 std::string book_vec_to_json(std::vector<std::string> headers, std::vector<std::string> book)
 { int i;
@@ -23,38 +21,63 @@ std::string book_vec_to_json(std::vector<std::string> headers, std::vector<std::
 	out.pop_back();
 
 	return out + "}";
+}
 
+std::vector<std::string> get_db_headers(sqlite3* db)
+{
+	int i;
+	std::vector<std::string> res;
+	sqlite3_stmt* getmsgs;
+
+	sqlite3_prepare(db, "SELECT * FROM books;", -1, &getmsgs, NULL);
+	sqlite3_step(getmsgs);
+	for (i = 0; i < sqlite3_column_count(getmsgs); i++)
+		res.push_back(sqlite3_column_name(getmsgs, i));
+
+	sqlite3_finalize(getmsgs);
+	return res;
 }
 
 std::string get_all_books()
 {
-	std::ifstream file;
-	int file_exists;
-	std::string line, total_lines;
+	int rc, i;
+	sqlite3* db;
+	char* text;
+	std::string total_lines;
 	std::vector<std::string> book_vec;
 	std::vector<std::string> header_vec;
 
+	std::ifstream file("books.db");
+	if (!file.is_open())
+		return "No books found!\n";
+	file.close();
 
-	file.open(BOOK_FILENAME);
+	rc = sqlite3_open("books.db", &db);
+	if (rc != SQLITE_OK) {
+		fprintf(stderr, "Cannot open database: %s\n", sqlite3_errmsg(db));
+		sqlite3_close(db);
 
-	if (!file.good()) {
-		fprintf(stderr, "Theres no books available!\n"); 
-		return "No books saved!";
+		exit(EXIT_FAILURE);
 	}
 
-	std::getline(file, line); 
-	
-	// this contains the headers so that we can fill the json file
-	header_vec = get_csv_as_vector(line); 
+	total_lines += "{\"books\": [";
 
-	total_lines = "{ \"books\": [";	
-	while (std::getline(file, line)) {
-		book_vec = get_csv_as_vector(line);
-	
+	header_vec = get_db_headers(db);
+
+	sqlite3_stmt* getmsgs;
+	sqlite3_prepare(db, "SELECT * FROM books;", -1, &getmsgs, NULL);
+	while(sqlite3_step(getmsgs) == SQLITE_ROW) {
+		book_vec.clear();
+		for (i = 0; i < sqlite3_column_count(getmsgs); i++) {
+			text = (char*) sqlite3_column_text(getmsgs, i);
+			book_vec.push_back(std::string(text));
+		}
 		total_lines += book_vec_to_json(header_vec, book_vec) + ",";
 	}
+	sqlite3_finalize(getmsgs);
+	sqlite3_close(db);
 
-	// remove the trailing comma
+	// remove trailing comma
 	total_lines.pop_back();
 
 
