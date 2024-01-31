@@ -25,7 +25,7 @@ int main()
 		 {
 		 	crow::response response(add_new_book(isbn));
 			response.add_header("Access-Control-Allow-Origin", "*");
-		 	return crow::response(add_new_book(isbn));
+		 	return response;
 		 });
 
 	CROW_ROUTE(app, "/remove/<string>")
