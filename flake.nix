@@ -55,6 +55,7 @@
       # C/C++
       boost
       crow
+      sqlite
       gnumake
     ];
 
@@ -69,6 +70,7 @@
       dbus
       openssl_3
       librsvg
+      sqlite
     ];
   in {
     devShells.${system}.default = pkgs.mkShell {

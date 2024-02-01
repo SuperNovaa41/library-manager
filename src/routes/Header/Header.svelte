@@ -39,10 +39,16 @@
 
 <style>
   nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
     height: 80px;
-    background-color: var(--dark-gray);
+
     display: flex;
     align-items: center;
+
+    background-color: var(--dark-gray);
+    filter: drop-shadow(0 0 10px black);
 
     & div {
       height: 100%;
@@ -67,7 +73,7 @@
         }
 
         width: 100%;
-        min-width: 340px;
+        min-width: 400px;
         font-size: 40px;
         font-weight: bold;
         font-family: "Oswald", sans-serif;

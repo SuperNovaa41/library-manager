@@ -5,8 +5,8 @@
     title: string;
     authors: string;
     imageurl: string;
-    publication_year: number;
-    progress: number;
+    year_of_publication: number;
+    progress: number; // TODO: add this field.
     page_length: number;
   }
 </script>
